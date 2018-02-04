@@ -72,7 +72,7 @@ public class ShipController : MonoBehaviour
 		{
 			Ray lookAtRay = controllingCamera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitInfo;
-			if (Physics.Raycast(lookAtRay, out hitInfo, float.PositiveInfinity, 1 << LayerMask.NameToLayer("Environment"), QueryTriggerInteraction.Ignore))
+			if (Physics.Raycast(lookAtRay, out hitInfo, float.PositiveInfinity, 1 << LayerMask.NameToLayer("Ground"), QueryTriggerInteraction.Ignore))
 			{
 				Vector3 delta = hitInfo.point - transform.position;
 				delta.y = 0;
@@ -109,7 +109,7 @@ public class ShipController : MonoBehaviour
 			Transform gun = gunTransforms[i];
 			var bulletObj = Instantiate(config.bulletPrefab, gun.position, gun.rotation);
 			var bullet = bulletObj.GetComponent<BulletController>();
-			bullet.Fire(200f, gun.forward, 1f);
+			bullet.Fire(200f, gun.forward, 6f);
 		}
 	}
 

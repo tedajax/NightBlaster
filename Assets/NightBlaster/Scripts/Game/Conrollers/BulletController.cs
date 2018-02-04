@@ -33,12 +33,6 @@ public class BulletController : MonoBehaviour, IDestructable
 
 	void OnCollisionEnter(Collision collision)
 	{
-		ILivingEntity health = collision.gameObject.GetComponent<ILivingEntity>();
-		if (health != null)
-		{
-			health.Health.Damage(damage);
-		}
-
 		Destruct();
 	}
 
@@ -74,15 +68,28 @@ public class BulletController : MonoBehaviour, IDestructable
 			}
 
 			var entity = colliders[i].attachedRigidbody.GetComponent<ILivingEntity>();
-			if (entity != null && entity.RigidBody != null)
+
+			if (entity != null)
 			{
 				Vector3 delta = entity.RigidBody.transform.position - transform.position;
 				delta.y = 2f;
 				float magnitude = delta.magnitude;
 				Vector3 direction = delta.normalized;
-				Vector3 force = direction * Mathf.Lerp(explosionForce, 0f, magnitude / explosionRadius);
-				entity.RigidBody.AddForce(force, ForceMode.Impulse);
+
+				entity.Health.Damage(Mathf.Lerp(damage, 0f, magnitude / explosionRadius));
+
+				if (entity.RigidBody != null)
+				{
+					Vector3 force = direction * Mathf.Lerp(explosionForce, 0f, magnitude / explosionRadius);
+					entity.RigidBody.AddForce(force, ForceMode.Impulse);
+				}
 			}
 		}
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
+		Gizmos.DrawSphere(transform.position, explosionRadius);
 	}
 }

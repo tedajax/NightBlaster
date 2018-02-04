@@ -23,6 +23,7 @@ public class EnemyZombieController : MonoBehaviour, ILivingEntity
 	public EnemyZombieData config;
 	public Rigidbody rigidBody;
 	public PositionTweener walkTweener;
+	public DamagedVisualsController damagedVisuals;
 
 	private State state;
 	private float speed;
@@ -38,7 +39,8 @@ public class EnemyZombieController : MonoBehaviour, ILivingEntity
 	void Awake()
 	{
 		state = State.Idle;
-		health = new HealthProperty(config.maxHealth);
+		health = new HealthProperty(config.maxHealth, 0.2f);
+		health.OnDamage += onDamage;
 		health.OnDeath += onDeath;
 	}
 
@@ -49,6 +51,8 @@ public class EnemyZombieController : MonoBehaviour, ILivingEntity
 
 	void Update()
 	{
+		health.Update(Time.deltaTime);
+
 		switch (state)
 		{
 			case State.Idle: idle(); break;
@@ -65,11 +69,21 @@ public class EnemyZombieController : MonoBehaviour, ILivingEntity
 		}
 	}
 
+	private void onDamage()
+	{
+		damagedVisuals.SetDamageState(DamagedVisualsController.DamageState.Damaged, health.DamageLockoutTime);
+	}
+
 	private void onDeath()
 	{
 		state = State.Dead;
 		rigidBody.constraints = RigidbodyConstraints.None;
 		rigidBody.useGravity = true;
+
+		rigidBody.AddTorque(Vector3.right * 20f, ForceMode.Impulse);
+
+		damagedVisuals.SetDamageState(DamagedVisualsController.DamageState.Dead, -1f);
+
 		if (walkTweener != null)
 		{
 			walkTweener.Tween.Reset(0f);

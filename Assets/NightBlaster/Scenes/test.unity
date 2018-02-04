@@ -442,6 +442,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 114208555884207728, guid: 319047d401c753b44a83873740ee40d3,
+        type: 2}
+      propertyPath: config.rateOfFire
+      value: 0.17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 319047d401c753b44a83873740ee40d3, type: 2}
   m_IsPrefabParent: 0
@@ -737,10 +742,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1892424747441246, guid: a1f0ee7e38b58bf49a9859f91416a6b0,
     type: 2}
-  waveCount: 1
-  waveInterval: 30
-  enemiesPerWave: 15
-  spawnDistance: 100
+  waveCount: 5
+  waveInterval: 10
+  enemiesPerWave: 30
+  spawnDistance: 75
 --- !u!1 &1960939529
 GameObject:
   m_ObjectHideFlags: 0

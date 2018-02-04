@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4910392147291336}
   - component: {fileID: 114320642832955114}
   - component: {fileID: 54927505203996614}
+  - component: {fileID: 114494749847249780}
   m_Layer: 0
   m_Name: zombie_prefab
   m_TagString: Untagged
@@ -434,3 +435,22 @@ MonoBehaviour:
     maxHealth: 2
   rigidBody: {fileID: 54927505203996614}
   walkTweener: {fileID: 114171505124719994}
+  damagedVisuals: {fileID: 114494749847249780}
+--- !u!114 &114494749847249780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1892424747441246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afb23acecfc5c48b2ff0332ce5f503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagedColor: {r: 1, g: 0, b: 0, a: 1}
+  deadColor: {r: 0.4852941, g: 0.4852941, b: 0.4852941, a: 1}
+  renderers:
+  - {fileID: 23628838300383720}
+  - {fileID: 23604200778483526}
+  - {fileID: 23953241908115188}
+  - {fileID: 23541663752925708}
